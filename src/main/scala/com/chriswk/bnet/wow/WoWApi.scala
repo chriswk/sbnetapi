@@ -44,44 +44,49 @@ case class Character(
 	lastModified: Long,
 	name: String,
 	achievementPoints: Int,
-	battleGroup: String,
+	battlegroup: String,
 	calcClass: String,
-	class: Int,
+	`class`: Int,
 	level: Int,
 	race: Int,
 	realm: String,
 	thumbnail: String
-)
-
+) extends WowClass
+/**
+ * A Wow Achievement
+ */
 case class Achievement(
-	accountWide: booleanm
-	criteria: List[Criteria],
+	accountWide: Boolean,
 	description: String,
 	icon: String,
 	id: Long,
 	points: Long,
-	reward: String
-	rwardItems: Option[List[RewardItem]]
+	reward: String,
+	rewardItems: Option[List[RewardItem]],
 	title: String
-)
-
+) extends WowClass
+/**
+ * A reward
+ */
 case class RewardItem(
 	icon: String,
 	id: Long,
 	name: String,
-	quality: Int
+	quality: Int,
 	tooltipParams: Option[String]
-)
-
+) extends WowClass
+/**
+ * Criteria for achievement
+ */
 case class Criteria(
-	description: String
+	description: String,
 	id: Long,
 	max: Long,
 	orderIndex: Long
 )
 
 object WoWApi {
-	def apply(region: String) {
+	def apply(region: String = "eu") {
 		new WoWApi(region)
 	} 
 }
@@ -105,6 +110,14 @@ class WoWApi(val region: String) {
 			yield parse(g).extract[Guild]
 	}
 	
+	def findPlayer(realm: String, name: String) = {
+		val f = charQuery(realm, name)
+		println(f.build())
+		val p = Http(f OK as.String)
+		for (c <- p)
+			yield parse(c).extract[Character]
+	}
 	
+	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
 	
 }

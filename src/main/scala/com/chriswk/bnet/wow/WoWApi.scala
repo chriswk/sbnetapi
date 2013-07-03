@@ -1,6 +1,7 @@
 package com.chriswk.bnet.wow
 
 import dispatch._
+import dispatch.as.lift._
 import net.liftweb.json._
 import Defaults._
 
@@ -41,7 +42,42 @@ case class Guild(
  */
 case class Character(
 	lastModified: Long,
-	name: String
+	name: String,
+	achievementPoints: Int,
+	battleGroup: String,
+	calcClass: String,
+	class: Int,
+	level: Int,
+	race: Int,
+	realm: String,
+	thumbnail: String
+)
+
+case class Achievement(
+	accountWide: booleanm
+	criteria: List[Criteria],
+	description: String,
+	icon: String,
+	id: Long,
+	points: Long,
+	reward: String
+	rwardItems: Option[List[RewardItem]]
+	title: String
+)
+
+case class RewardItem(
+	icon: String,
+	id: Long,
+	name: String,
+	quality: Int
+	tooltipParams: Option[String]
+)
+
+case class Criteria(
+	description: String
+	id: Long,
+	max: Long,
+	orderIndex: Long
 )
 
 object WoWApi {
@@ -52,14 +88,23 @@ object WoWApi {
 
 class WoWApi(val region: String) {
 	implicit val formats = net.liftweb.json.DefaultFormats
-	val wowApiUrl = apiUrl(region) / "wow"
-	val guildUrl = wowApiUrl / "guild"
-	val characterUrl = wowApiUrl / "character"
-	val itemUrl = wowApiUrl / "item"
-	val achievementUrl = wowApiUrl / "achievement"
+	def wowApiUrl() = apiUrl(region) / "wow"
+	def guildUrl() = wowApiUrl / "guild"
+	def guildQuery(realm: String, name: String) = guildUrl / realm / name
+	def charUrl() = wowApiUrl / "character"
+	def charQuery(realm: String, name: String) = charUrl / realm / name
+	def itemUrl() = wowApiUrl / "item"
+	def itemQuery(id: Int) = itemUrl / id
+	def achievementUrl() = wowApiUrl / "achievement"
 	
 	def findGuild(realm: String, name: String) = {
-		val queryUrl = guildUrl / realm / name
-		Http(queryUrl OK as.String)
+		val f = guildQuery(realm, name)
+		println(f.build())
+		val p = Http(guildQuery(realm, name) OK as.String) 
+		for (g <- p)
+			yield parse(g).extract[Guild]
 	}
+	
+	
+	
 }

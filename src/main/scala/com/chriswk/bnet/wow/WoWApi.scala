@@ -102,20 +102,20 @@ class WoWApi(val region: String) {
 	def itemQuery(id: Int) = itemUrl / id
 	def achievementUrl() = wowApiUrl / "achievement"
 	
-	def findGuild(realm: String, name: String) = {
+	def findGuild(realm: String, name: String): scala.concurrent.Future[Guild] = {
 		val f = guildQuery(realm, name)
 		println(f.build())
-		val p = Http(guildQuery(realm, name) OK as.String) 
+		val p = Http(guildQuery(realm, name) OK as.lift.Json) 
 		for (g <- p)
-			yield parse(g).extract[Guild]
+			yield g.extract[Guild]
 	}
 	
-	def findPlayer(realm: String, name: String) = {
+	def findPlayer(realm: String, name: String): scala.concurrent.Future[Character] = {
 		val f = charQuery(realm, name)
 		println(f.build())
-		val p = Http(f OK as.String)
+		val p = Http(f OK as.lift.Json)
 		for (c <- p)
-			yield parse(c).extract[Character]
+			yield c.extract[Character]
 	}
 	
 	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"

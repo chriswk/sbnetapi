@@ -93,14 +93,15 @@ object WoWApi {
 
 class WoWApi(val region: String) {
 	implicit val formats = net.liftweb.json.DefaultFormats
-	def wowApiUrl() = apiUrl(region) / "wow"
-	def guildUrl() = wowApiUrl / "guild"
+	val wowApiUrl = apiUrl(region) / "wow"
+	val guildUrl = wowApiUrl / "guild"
+	val charUrl = wowApiUrl / "character"
+	val itemUrl = wowApiUrl / "item"
+	val achievementUrl = wowApiUrl / "achievement"
+	
 	def guildQuery(realm: String, name: String) = guildUrl / realm / name
-	def charUrl() = wowApiUrl / "character"
 	def charQuery(realm: String, name: String) = charUrl / realm / name
-	def itemUrl() = wowApiUrl / "item"
 	def itemQuery(id: Int) = itemUrl / id
-	def achievementUrl() = wowApiUrl / "achievement"
 	
 	def findGuild(realm: String, name: String): scala.concurrent.Future[Guild] = {
 		val f = guildQuery(realm, name)
@@ -116,6 +117,14 @@ class WoWApi(val region: String) {
 		val p = Http(f OK as.lift.Json)
 		for (c <- p)
 			yield c.extract[Character]
+	}
+	
+	def findItem(id: Int) = {
+		val p = itemQuery(id)
+		println(p.build())
+		val item = Http(p OK as.lift.Json)
+		for (i <- item)
+			yield i
 	}
 	
 	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"

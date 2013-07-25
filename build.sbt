@@ -1,16 +1,34 @@
-name := "sbnetapi"
+import Dependencies._
+import common._
 
-version := "0.1-SNAPSHOT"
+organization := "com.chriswk"
+
+name := "sbnetapi"
 
 description := "A Scala frontend to battle.net apis"
 
 scalaVersion := "2.10.1"
 
-libraryDependencies ++= Seq(
-  "net.databinder.dispatch" %% "dispatch-core" % "0.10.1",
-  "net.databinder.dispatch" %% "dispatch-lift-json" % "0.10.1",
-  "net.liftweb" %% "lift-json" % "2.5.1",
-  "com.typesafe" %% "scalalogging-slf4j" % "1.0.1",
-  "org.slf4j" % "slf4j-api" % "1.7.4",
-  "org.slf4j" % "slf4j-simple" % "1.7.4"
+val gitHeadCommitSha =
+  settingKey[String]("current git commit SHA")
+  
+val gitDescribe =
+  settingKey[String]("current git describe")
+
+gitHeadCommitSha in ThisBuild :=
+  Process("git rev-parse HEAD").lines.head
+  
+gitDescribe in ThisBuild :=
+  Process("git describe").lines.head
+  
+version in ThisBuild :=
+  "1.0-" + gitHeadCommitSha.value
+
+lazy val backend = (
+  apiProject("api")
+  settings(
+    libraryDependencies ++= apiDependencies:_*
+  )
 )
+
+

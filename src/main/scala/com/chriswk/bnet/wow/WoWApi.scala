@@ -15,7 +15,7 @@ object WoWApi {
 	} 
 }
 
-class WoWApi(val region: String) {
+class WoWApi(val region: String = "eu") {
 	implicit val formats = net.liftweb.json.DefaultFormats
 	val wowApiUrl = apiUrl(region) / "wow"
 	val guildUrl = wowApiUrl / "guild"

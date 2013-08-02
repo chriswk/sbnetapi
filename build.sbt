@@ -1,5 +1,4 @@
 import Dependencies._
-import common._
 
 organization := "com.chriswk"
 
@@ -7,7 +6,7 @@ name := "sbnetapi"
 
 description := "A Scala frontend to battle.net apis"
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.2"
 
 val gitHeadCommitSha =
   settingKey[String]("current git commit SHA")
@@ -24,11 +23,7 @@ gitDescribe in ThisBuild :=
 version in ThisBuild :=
   "1.0-" + gitHeadCommitSha.value
 
-lazy val backend = (
-  apiProject("api")
-  settings(
-    libraryDependencies ++= apiDependencies:_*
-  )
-)
 
+seq(lsSettings :_*)
 
+libraryDependencies ++= apiDependencies

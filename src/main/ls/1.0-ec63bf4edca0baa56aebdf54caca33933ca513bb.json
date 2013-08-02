@@ -1,0 +1,34 @@
+{
+  "organization" : "com.chriswk",
+  "name" : "sbnetapi",
+  "version" : "1.0-ec63bf4edca0baa56aebdf54caca33933ca513bb",
+  "description" : "A Scala frontend to battle.net apis",
+  "site" : "",
+  "tags" : [ ],
+  "docs" : "",
+  "resolvers" : [ "https://oss.sonatype.org/content/repositories/releases" ],
+  "dependencies" : [ {
+    "organization" : "net.databinder.dispatch",
+    "name" : "dispatch-core",
+    "version" : "0.11.0"
+  }, {
+    "organization" : "net.databinder.dispatch",
+    "name" : "dispatch-lift-json",
+    "version" : "0.11.0"
+  }, {
+    "organization" : "org.slf4j",
+    "name" : "slf4j-api",
+    "version" : "1.7.5"
+  }, {
+    "organization" : "org.slf4j",
+    "name" : "slf4j-simple",
+    "version" : "1.7.5"
+  }, {
+    "organization" : "com.eed3si9n",
+    "name" : "sbt-buildinfo",
+    "version" : "0.2.5"
+  } ],
+  "scalas" : [ "2.10.2" ],
+  "licenses" : [ ],
+  "sbt" : false
+}

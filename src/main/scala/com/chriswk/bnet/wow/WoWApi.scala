@@ -10,7 +10,7 @@ import com.chriswk.bnet.wow.model._
 
 
 object WoWApi {
-	def apply(region: String = "eu") {
+  def apply(region: String): WoWApi = {
 		new WoWApi(region)
 	} 
 }

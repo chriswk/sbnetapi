@@ -4,7 +4,7 @@ import Keys._
 object Dependencies {
 	val dispatchVersion = "0.11.0"
 	val slf4jVersion = "1.7.5"
-	val specs2 = "org.specs2" %% "specs2" % "2.1"
+	val specs2 = "org.specs2" %% "specs2" % "2.1.1"
 	val typesafeLogging = "org.typesafe" % "scalaloggin-slf4j" % "1.0.1"
 	
 	def dispatchDep(artifactName: String) = {

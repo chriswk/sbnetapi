@@ -26,4 +26,8 @@ version in ThisBuild :=
 
 seq(lsSettings :_*)
 
+seq(bintrayPublishSettings:_*)
+
 libraryDependencies ++= apiDependencies
+
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

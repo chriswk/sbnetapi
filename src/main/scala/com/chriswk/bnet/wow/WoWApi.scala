@@ -25,32 +25,47 @@ class WoWApi(val region: String = "eu") {
 	def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
 	def charQuery(realm: String, name: String):Req = charUrl / realm / name
 	def itemQuery(id: Int):Req = itemUrl / id
-	
-	def findGuild(realm: String, name: String): scala.concurrent.Future[Guild] = {
+
+  /**
+   * Finds a guild, if guild cannot be found swallows exception and returns None
+   * {{{
+   *   import com.chriswk.bnet.wow.WoWApi
+   *   val guild = WoWApi().findGuild("Aggramar", "Auditor Fortuna Juvat")
+   * }}}
+   * @param realm - Realm the guild is on
+   * @param name - Name of guild, dispatch will escape it for you
+   * @return Guild - A Case class for the guild
+   */
+
+  def findGuild(realm: String, name: String): scala.concurrent.Future[Guild] = {
 		val p = Http(guildQuery(realm, name) OK as.lift.Json) 
 		for (g <- p)
 			yield g.extract[Guild]
 	}
-	
-	def findPlayer(realm: String, name: String): scala.concurrent.Future[Character] = {
+
+  /**
+   * Finds character
+   * @param realm - Realm the character is on
+   * @param name - Name of the character
+   * @return Character - A case class for the
+   */
+	def findCharacter(realm: String, name: String): scala.concurrent.Future[Character] = {
 		val p = Http(charQuery(realm, name) OK as.lift.Json)
 		for (c <- p)
 			yield c.extract[Character]
 	}
-	
+
+  /**
+   * Finds all realms
+   * @return
+   */
 	def findAllRealms(): scala.concurrent.Future[List[Realm]] = {
 		val realmReq = Http(realmUrl OK as.lift.Json)
 		for {
       realmRoot <- realmReq
     } yield realmRoot.extract[Realms].realms
 	}
-	def findItem(id: Int) = {
-		val p = itemQuery(id)
-		val item = Http(p OK as.lift.Json)
-		for (i <- item)
-			i
-	}
-	
+
 	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
 	
 }

@@ -21,7 +21,7 @@ gitDescribe in ThisBuild :=
   Process("git describe").lines.head
   
 version in ThisBuild :=
-  "1.0-" + gitHeadCommitSha.value
+  "0.0.1-" + gitHeadCommitSha.value
 
 
 seq(lsSettings :_*)

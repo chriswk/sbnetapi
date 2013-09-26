@@ -5,6 +5,3 @@ http://blizzard.github.io/api-wow-docs/
 
 
 For more info see http://chriswk.github.io/sbnetapi
-
-License http://chriswk.github.io/sbnetapi/LICENSE
-

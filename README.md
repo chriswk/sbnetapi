@@ -9,8 +9,8 @@ Plans for version 0.1
 Support
 * Initialize via val api = WowApi(region: String)
 * api.findAllRealms() : Future[List[Realm]
-* api.findGuild(name:String, realm: String)) : Future[Guild]
-* api.findChar(name:String, realm: String)) : Future[Character]
+* api.findGuild(realm: String, name:String)) : Future[Guild]
+* api.findChar(realm: String, name:String)) : Future[Character]
 
 
 Future plans

@@ -10,7 +10,8 @@ import com.chriswk.bnet.wow.model._
 object WoWApi {
   def apply(region: String): WoWApi = {
 		new WoWApi(region)
-	} 
+	}
+  def apply() = new WoWApi("eu")
 }
 
 class WoWApi(val region: String = "eu") {
@@ -37,14 +38,14 @@ class WoWApi(val region: String = "eu") {
 			yield c.extract[Character]
 	}
 	
-	def findAllRealms() = {
-		val realmReq = Http(realmUrl OK as lift.Json)
-		for (realm <- realmReq)
-			yield realm.extract[Realm]
+	def findAllRealms(): scala.concurrent.Future[List[Realm]] = {
+		val realmReq = Http(realmUrl OK as.lift.Json)
+		for {
+      realmRoot <- realmReq
+    } yield realmRoot.extract[Realms].realms
 	}
 	def findItem(id: Int) = {
 		val p = itemQuery(id)
-		println(p.build())
 		val item = Http(p OK as.lift.Json)
 		for (i <- item)
 			i

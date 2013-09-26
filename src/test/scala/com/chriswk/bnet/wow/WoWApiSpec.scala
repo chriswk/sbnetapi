@@ -41,6 +41,12 @@ class WoWApiSpec extends Specification {
     }
   }
 
+  "Realm url" should {
+    "have Status url" in {
+      api.realmUrl.url === "http://eu.battle.net/api/wow/realm/status"
+    }
+  }
+
   "Item url" should {
     "Base item url" in {
       api.itemUrl.url === "http://eu.battle.net/api/wow/item"

@@ -26,8 +26,18 @@ version in ThisBuild :=
 
 seq(lsSettings :_*)
 
-seq(bintrayPublishSettings:_*)
-
 libraryDependencies ++= apiDependencies
 
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials") 
+
+publishTo := {
+ val chriswkArtifactory = "http://artifactory.chriswk.com/artifactory/"
+ if (version.value.trim.endsWith("SNAPSHOT")) {
+    Some("chriswkSnapshots" at chriswkArtifactory + "libs-snapshot-local")
+ } else {
+    Some("chriswkRelease" at chriswkArtifactory + "libs-release-local")
+ }
+}
+

@@ -10,8 +10,6 @@ scalaVersion := "2.10.2"
   
 val chriswkArtifactory = "http://artifactory.chriswk.com/artifactory/"
 
-version := "0.0.1-SNAPSHOT"
-
 seq(lsSettings :_*)
 
 seq(releaseSettings :_*)

@@ -7,27 +7,14 @@ name := "sbnetapi"
 description := "A Scala frontend to battle.net apis"
 
 scalaVersion := "2.10.2"
-
-val gitHeadCommitSha =
-  settingKey[String]("current git commit SHA")
-  
-val gitDescribe =
-  settingKey[String]("current git describe")
-
-gitHeadCommitSha in ThisBuild :=
-  Process("git rev-parse HEAD").lines.head
-  
-gitDescribe in ThisBuild :=
-  Process("git describe").lines.head
   
 val chriswkArtifactory = "http://artifactory.chriswk.com/artifactory/"
 
-
-version in ThisBuild :=
-  "0.0.1-SNAPSHOT"
-
+version := "0.0.1-SNAPSHOT"
 
 seq(lsSettings :_*)
+
+seq(releaseSettings :_*)
 
 (LsKeys.tags in LsKeys.lsync) := Seq("battlenet", "worldofwarcraft", "dispatch", "lift-json")
 

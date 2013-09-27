@@ -18,4 +18,4 @@ resolvers ++= Seq(
 
 addSbtPlugin("me.lessis" % "ls-sbt" % "0.1.3")
 
-addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "0.8")

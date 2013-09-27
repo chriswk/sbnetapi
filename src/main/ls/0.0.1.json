@@ -4,9 +4,9 @@
   "version" : "0.0.1-SNAPSHOT",
   "description" : "A Scala frontend to battle.net apis",
   "site" : "",
-  "tags" : [ ],
+  "tags" : [ "battlenet", "worldofwarcraft", "dispatch", "lift-json" ],
   "docs" : "",
-  "resolvers" : [ "https://oss.sonatype.org/content/repositories/releases" ],
+  "resolvers" : [ "http://artifactory.chriswk.com/artifactory/libs-release-local", "http://artifactory.chriswk.com/artifactory/libs-snapshot-local" ],
   "dependencies" : [ {
     "organization" : "net.databinder.dispatch",
     "name" : "dispatch-core",
@@ -23,10 +23,6 @@
     "organization" : "org.slf4j",
     "name" : "slf4j-simple",
     "version" : "1.7.5"
-  }, {
-    "organization" : "com.eed3si9n",
-    "name" : "sbt-buildinfo",
-    "version" : "0.2.5"
   } ],
   "scalas" : [ "2.10.2" ],
   "licenses" : [ {

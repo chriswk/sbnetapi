@@ -11,5 +11,6 @@ case class Guild(
                   level: Int,
                   side: Int,
                   achievementPoints: Int,
-                  emblem: Emblem
+                  emblem: Emblem,
+                  members: List[CharHolder]
                   )

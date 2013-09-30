@@ -22,6 +22,8 @@ class WoWApi(val region: String = "eu") {
 	val itemUrl = wowApiUrl / "item"
 	val achievementUrl = wowApiUrl / "achievement"
 	val realmUrl = wowApiUrl / "realm" / "status"
+  val racesUrl = wowApiUrl / "data" / "character" / "races"
+  val classesUrl = wowApiUrl / "data" / "character" / "classes"
 	def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
 	def charQuery(realm: String, name: String):Req = charUrl / realm / name
 	def itemQuery(id: Int):Req = itemUrl / id
@@ -37,9 +39,9 @@ class WoWApi(val region: String = "eu") {
    * @return Guild - A Case class for the guild
    */
 
-  def findGuild(realm: String, name: String): scala.concurrent.Future[Guild] = {
-		val p = Http(guildQuery(realm, name) OK as.lift.Json) 
-		for (g <- p)
+  def findGuild(realm: String, name: String, extraFields: List[String] = List()): scala.concurrent.Future[Guild] = {
+		val p = guildQuery(realm, name).addQueryParameter("fields", extraFields.mkString(","))
+		for (g <- Http(p OK as.lift.Json))
 			yield g.extract[Guild]
 	}
 
@@ -66,6 +68,11 @@ class WoWApi(val region: String = "eu") {
     } yield realmRoot.extract[Realms].realms
 	}
 
+  def getRaces = {
+    for(races <- Http(racesUrl OK as.lift.Json)) yield races.extract[Races]
+  }
+
 	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
-	
+
+
 }

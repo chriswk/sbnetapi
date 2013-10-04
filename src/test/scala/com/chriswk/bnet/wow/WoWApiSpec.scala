@@ -14,6 +14,14 @@ class WoWApiSpec extends Specification {
       val us = new WoWApi("us")
       us.wowApiUrl.url === "http://us.battle.net/api/wow"
     }
+	"Support switching to kr" in {
+		val kr = new WoWApi("kr")
+		kr.wowApiUrl.url === "http://kr.battle.net/api/wow"
+	}
+	"Support switching to tw" in {
+		val kr = new WoWApi("tw")
+		kr.wowApiUrl.url === "http://tw.battle.net/api/wow"
+	}
   }
 
   "Url to guild page" should {

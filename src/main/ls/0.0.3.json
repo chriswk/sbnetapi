@@ -1,0 +1,33 @@
+{
+  "organization" : "com.chriswk",
+  "name" : "sbnetapi",
+  "version" : "0.0.3",
+  "description" : "A Scala frontend to battle.net apis",
+  "site" : "",
+  "tags" : [ "battlenet", "worldofwarcraft", "dispatch", "lift-json" ],
+  "docs" : "",
+  "resolvers" : [ "http://artifactory.chriswk.com/artifactory/libs-release-local", "http://artifactory.chriswk.com/artifactory/libs-snapshot-local" ],
+  "dependencies" : [ {
+    "organization" : "net.databinder.dispatch",
+    "name" : "dispatch-core",
+    "version" : "0.11.0"
+  }, {
+    "organization" : "net.databinder.dispatch",
+    "name" : "dispatch-lift-json",
+    "version" : "0.11.0"
+  }, {
+    "organization" : "org.slf4j",
+    "name" : "slf4j-api",
+    "version" : "1.7.5"
+  }, {
+    "organization" : "org.slf4j",
+    "name" : "slf4j-simple",
+    "version" : "1.7.5"
+  } ],
+  "scalas" : [ "2.10.2" ],
+  "licenses" : [ {
+    "name" : "MIT",
+    "url" : "http://opensource.org/licenses/MIT"
+  } ],
+  "sbt" : false
+}

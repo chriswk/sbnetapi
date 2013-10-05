@@ -18,16 +18,24 @@ object WoWApi {
 class WoWApi(val region: String = "eu") {
 	implicit val formats = net.liftweb.json.DefaultFormats
 	val wowApiUrl = apiUrl(region) / "wow"
-	val guildUrl = wowApiUrl / "guild"
+	val dataUrl = wowApiUrl / "data"
+  val charDataUrl = dataUrl / "character"
+  val guildDataUrl = dataUrl / "guild"
+  val guildUrl = wowApiUrl / "guild"
 	val charUrl = wowApiUrl / "character"
-	val itemUrl = wowApiUrl / "item"
-	val achievementUrl = wowApiUrl / "achievement"
-	val realmUrl = wowApiUrl / "realm" / "status"
-  val racesUrl = wowApiUrl / "data" / "character" / "races"
-  val classesUrl = wowApiUrl / "data" / "character" / "classes"
-	def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
+
+	//Status URL
+  val realmUrl = wowApiUrl / "realm" / "status"
+
+  //Character Data Url (races, classes)
+  val racesUrl = charDataUrl / "races"
+  val classesUrl = charDataUrl / "classes"
+
+  //Guild data url, achievements
+  val guildAchievementsUrl = guildDataUrl / "achievements"
+
+  def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
 	def charQuery(realm: String, name: String):Req = charUrl / realm / name
-	def itemQuery(id: Int):Req = itemUrl / id
 
   /**
    * Finds a guild, if guild cannot be found swallows exception and returns None
@@ -73,6 +81,13 @@ class WoWApi(val region: String = "eu") {
     for(races <- Http(racesUrl OK as.lift.Json)) yield races.extract[Races]
   }
 
+  def getClasses = {
+    for(classes <- Http(classesUrl OK as.lift.Json)) yield classes.extract[Classes]
+  }
+
+  def getGuildAchievements = {
+    for(achievements <- Http(guildAchievementsUrl OK as.lift.Json)) yield achievements.extract[Achievements]
+  }
 	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
 
 

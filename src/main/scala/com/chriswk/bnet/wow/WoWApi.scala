@@ -34,6 +34,8 @@ class WoWApi(val region: String = "eu") {
 
   //Guild data url, achievements
   val guildAchievementsUrl = guildDataUrl / "achievements"
+  val guildRewardsUrl = guildDataUrl / "rewards"
+  val guildPerksUrl = guildDataUrl / "perks"
 
   //Battlegroup url
   val battlegroupUrl = dataUrl / "battlegroups"
@@ -91,6 +93,12 @@ class WoWApi(val region: String = "eu") {
 
   def guildAchievements = {
     for(achievements <- Http(guildAchievementsUrl OK as.lift.Json)) yield achievements.extract[Achievements]
+  }
+  def guildRewards = {
+    for(rewards <- Http(guildRewardsUrl OK as.lift.Json)) yield rewards.extract[Rewards]
+  }
+  def guildPerks = {
+    for(perks <- Http(guildPerksUrl OK as.lift.Json)) yield perks.extract[Perks]
   }
 
   def characterAchievements = {

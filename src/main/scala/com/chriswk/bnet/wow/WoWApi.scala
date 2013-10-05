@@ -5,6 +5,7 @@ import Defaults._
 
 import com.chriswk.bnet.BNet._
 import com.chriswk.bnet.wow.model._
+import net.liftweb.json.Extraction
 
 
 object WoWApi {
@@ -42,7 +43,7 @@ class WoWApi(val region: String = "eu") {
   def findGuild(realm: String, name: String, extraFields: List[String] = List()): scala.concurrent.Future[Guild] = {
 		val p = guildQuery(realm, name).addQueryParameter("fields", extraFields.mkString(","))
 		for (g <- Http(p OK as.lift.Json))
-			yield g.extract[Guild]
+      yield g.extract[Guild]
 	}
 
   /**

@@ -3,8 +3,9 @@ package com.chriswk.bnet.wow.model
 /**
  * A Wow Guild
  */
+
+case class Member(character: Character, rank: Int)
 case class Guild(
-                  lastModified: Long,
                   name: String,
                   realm: String,
                   battlegroup: String,
@@ -12,5 +13,5 @@ case class Guild(
                   side: Int,
                   achievementPoints: Int,
                   emblem: Emblem,
-                  members: List[CharHolder]
+                  members: Option[List[Member]]
                   )

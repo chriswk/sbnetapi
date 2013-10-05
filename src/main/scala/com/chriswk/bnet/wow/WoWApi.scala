@@ -42,6 +42,12 @@ class WoWApi(val region: String = "eu") {
   //Battlegroup url
   val battlegroupUrl = dataUrl / "battlegroups"
 
+  /**
+   * Helper method to construct correct url for guild query
+   * @param realm - Realm the guild is on
+   * @param name - name of Guild
+   * @return Req - The request object to get data from
+   */
   def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
 	def charQuery(realm: String, name: String):Req = charUrl / realm / name
 
@@ -76,15 +82,16 @@ class WoWApi(val region: String = "eu") {
 
   /**
    * Finds all realms
-   * @return
+   * @return List of realms in the requested region
    */
 	def allRealms(): scala.concurrent.Future[List[Realm]] = {
-		val realmReq = Http(realmUrl OK as.lift.Json)
-		for {
-      realmRoot <- realmReq
-    } yield realmRoot.extract[Realms].realms
+		for (realmRoot <- Http(realmUrl OK as.lift.Json)) yield realmRoot.extract[Realms].realms
 	}
 
+  /**
+   * Grabs all race descriptions from blizzard
+   * @return Races - a case class holding all Race instances
+   */
   def races = {
     for(races <- Http(racesUrl OK as.lift.Json)) yield races.extract[Races]
   }

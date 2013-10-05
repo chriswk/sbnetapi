@@ -1,7 +1,7 @@
 {
   "organization" : "com.chriswk",
   "name" : "sbnetapi",
-  "version" : "0.0.2-SNAPSHOT",
+  "version" : "0.0.2",
   "description" : "A Scala frontend to battle.net apis",
   "site" : "",
   "tags" : [ "battlenet", "worldofwarcraft", "dispatch", "lift-json" ],

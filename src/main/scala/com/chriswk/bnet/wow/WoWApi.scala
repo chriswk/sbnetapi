@@ -37,6 +37,8 @@ class WoWApi(val region: String = "eu") {
   val guildRewardsUrl = guildDataUrl / "rewards"
   val guildPerksUrl = guildDataUrl / "perks"
 
+  //Battlepet data url
+  val battlePetDataUrl = dataUrl / "pet" / "types"
   //Battlegroup url
   val battlegroupUrl = dataUrl / "battlegroups"
 
@@ -106,6 +108,10 @@ class WoWApi(val region: String = "eu") {
   }
   def battlegroups = {
     for(battlegroups <- Http(battlegroupUrl OK as.lift.Json)) yield battlegroups.extract[Battlegroups]
+  }
+
+  def battlePetTypes = {
+    for(types <- Http(battlePetDataUrl OK as.lift.Json)) yield types.extract[BattlePetTypes]
   }
 
   def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"

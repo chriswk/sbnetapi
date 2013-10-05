@@ -34,6 +34,9 @@ class WoWApi(val region: String = "eu") {
   //Guild data url, achievements
   val guildAchievementsUrl = guildDataUrl / "achievements"
 
+  //Battlegroup url
+  val battlegroupUrl = dataUrl / "battlegroups"
+
   def guildQuery(realm: String, name: String):Req = guildUrl / realm / name
 	def charQuery(realm: String, name: String):Req = charUrl / realm / name
 
@@ -88,7 +91,12 @@ class WoWApi(val region: String = "eu") {
   def getGuildAchievements = {
     for(achievements <- Http(guildAchievementsUrl OK as.lift.Json)) yield achievements.extract[Achievements]
   }
-	def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
+
+  def getBattlegroups = {
+    for(battlegroups <- Http(battlegroupUrl OK as.lift.Json)) yield battlegroups.extract[Battlegroups]
+  }
+
+  def resolveImage(path: String) = s"http://${region}.battle.net/static-render/${region}/${path}"
 
 
 }

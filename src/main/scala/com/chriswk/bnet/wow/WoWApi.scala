@@ -30,6 +30,7 @@ class WoWApi(val region: String = "eu") {
   //Character Data Url (races, classes)
   val racesUrl = charDataUrl / "races"
   val classesUrl = charDataUrl / "classes"
+  val charAchievementsUrl = charDataUrl / "achievements"
 
   //Guild data url, achievements
   val guildAchievementsUrl = guildDataUrl / "achievements"
@@ -73,26 +74,29 @@ class WoWApi(val region: String = "eu") {
    * Finds all realms
    * @return
    */
-	def findAllRealms(): scala.concurrent.Future[List[Realm]] = {
+	def allRealms(): scala.concurrent.Future[List[Realm]] = {
 		val realmReq = Http(realmUrl OK as.lift.Json)
 		for {
       realmRoot <- realmReq
     } yield realmRoot.extract[Realms].realms
 	}
 
-  def getRaces = {
+  def races = {
     for(races <- Http(racesUrl OK as.lift.Json)) yield races.extract[Races]
   }
 
-  def getClasses = {
+  def classes = {
     for(classes <- Http(classesUrl OK as.lift.Json)) yield classes.extract[Classes]
   }
 
-  def getGuildAchievements = {
+  def guildAchievements = {
     for(achievements <- Http(guildAchievementsUrl OK as.lift.Json)) yield achievements.extract[Achievements]
   }
 
-  def getBattlegroups = {
+  def characterAchievements = {
+    for(achievements <- Http(charAchievementsUrl OK as.lift.Json)) yield achievements.extract[Achievements]
+  }
+  def battlegroups = {
     for(battlegroups <- Http(battlegroupUrl OK as.lift.Json)) yield battlegroups.extract[Battlegroups]
   }
 

@@ -1,6 +1,8 @@
 package com.chriswk.bnet.wow
 
 import org.specs2.mutable._
+import com.chriswk.Betamax
+import com.chriswk.Betamax._
 
 class WoWApiSpec extends Specification {
   val api = new WoWApi
@@ -55,9 +57,12 @@ class WoWApiSpec extends Specification {
     }
   }
 
-  "Item url" should {
-    "Base item url" in {
-      api.itemUrl.url === "http://eu.battle.net/api/wow/item"
-    }
-  }
+  "Guild query" should {
+	"find Auditor Fortuna Juvat, Aggramar" in Betamax("guild query") {
+		val guild = api.findGuild("Aggramar", "Auditor Fortuna Juvat").value
+		println(guild)
+		false
+	}
+
+   }
 }

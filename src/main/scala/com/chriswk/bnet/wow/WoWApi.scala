@@ -19,9 +19,9 @@ class WoWApi(val region: String = "eu") {
 	implicit val formats = net.liftweb.json.DefaultFormats
 	val wowApiUrl = apiUrl(region) / "wow"
 	val dataUrl = wowApiUrl / "data"
-  val charDataUrl = dataUrl / "character"
-  val guildDataUrl = dataUrl / "guild"
-  val guildUrl = wowApiUrl / "guild"
+  	val charDataUrl = dataUrl / "character"
+  	val guildDataUrl = dataUrl / "guild"
+  	val guildUrl = wowApiUrl / "guild"
 	val charUrl = wowApiUrl / "character"
 
 	//Status URL

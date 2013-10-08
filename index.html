@@ -59,7 +59,7 @@
 <h4>
 <a name="fetch-realm-list-for-region" class="anchor" href="#fetch-realm-list-for-region"><span class="octicon octicon-link"></span></a>Fetch realm list for region</h4>
 
-<div class="highlight highlight-scala"><pre><span class="nc">WoWApi</span><span class="o">(</span><span class="n">region</span><span class="o">).</span><span class="n">findAllRealms</span><span class="o">().</span><span class="n">onComplete</span><span class="o">(</span><span class="n">req</span> <span class="k">=&gt;</span> <span class="o">{</span>
+<div class="highlight highlight-scala"><pre><span class="nc">WoWApi</span><span class="o">(</span><span class="n">region</span><span class="o">).</span><span class="n">allRealms</span><span class="o">().</span><span class="n">onComplete</span><span class="o">(</span><span class="n">req</span> <span class="k">=&gt;</span> <span class="o">{</span>
   <span class="n">req</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">realms</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Realm</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="n">processRealmList</span><span class="o">(</span><span class="n">realms</span><span class="o">))</span>
 <span class="o">}))</span>
 </pre></div>
@@ -73,7 +73,8 @@
 <h4>
 <a name="fetch-guild-with-members" class="anchor" href="#fetch-guild-with-members"><span class="octicon octicon-link"></span></a>Fetch Guild with members</h4>
 
-<p>Future[Guild] = WoWApi().findGuild(realm, name, List("members"))</p>
+<div class="highlight highlight-scala"><pre><span class="nc">Future</span><span class="o">[</span><span class="kt">Guild</span><span class="o">]</span> <span class="k">=</span> <span class="nc">WoWApi</span><span class="o">().</span><span class="n">findGuild</span><span class="o">(</span><span class="n">realm</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="s">"members"</span><span class="o">))</span>
+</pre></div>
 
 <h4>
 <a name="fetch-character-with-region--name" class="anchor" href="#fetch-character-with-region--name"><span class="octicon octicon-link"></span></a>Fetch Character with region / name</h4>
@@ -94,6 +95,18 @@
 <a name="possible-classes" class="anchor" href="#possible-classes"><span class="octicon octicon-link"></span></a>Possible classes</h4>
 
 <div class="highlight highlight-scala"><pre><span class="nc">Future</span><span class="o">[</span><span class="kt">Classes</span><span class="o">]</span> <span class="k">=</span> <span class="nc">WoWApi</span><span class="o">().</span><span class="n">classes</span>
+</pre></div>
+
+<h4>
+<a name="battlegroups" class="anchor" href="#battlegroups"><span class="octicon octicon-link"></span></a>Battlegroups</h4>
+
+<div class="highlight highlight-scala"><pre><span class="nc">Future</span><span class="o">[</span><span class="kt">Battlegroups</span><span class="o">]</span> <span class="k">=</span> <span class="nc">WoWApi</span><span class="o">().</span><span class="n">battlegroups</span>
+</pre></div>
+
+<h4>
+<a name="battle-pet-types" class="anchor" href="#battle-pet-types"><span class="octicon octicon-link"></span></a>Battle pet types</h4>
+
+<div class="highlight highlight-scala"><pre><span class="nc">Future</span><span class="o">[</span><span class="kt">BattlePetTypes</span><span class="o">]</span> <span class="k">=</span> <span class="nc">WoWApi</span><span class="o">().</span><span class="n">battlePetTypes</span>
 </pre></div>
 
 <h4>

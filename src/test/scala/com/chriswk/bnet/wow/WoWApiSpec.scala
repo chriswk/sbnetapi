@@ -3,6 +3,10 @@ package com.chriswk.bnet.wow
 import org.specs2.mutable._
 import com.chriswk.Betamax
 import com.chriswk.Betamax._
+import scala.concurrent.{Future, Await}
+import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.util.{Try, Success, Failure}
 
 class WoWApiSpec extends Specification {
   val api = new WoWApi
@@ -59,9 +63,10 @@ class WoWApiSpec extends Specification {
 
   "Guild query" should {
 	"find Auditor Fortuna Juvat, Aggramar" in Betamax("guild query") {
-		val guild = api.findGuild("Aggramar", "Auditor Fortuna Juvat").value
-		println(guild)
-		false
+		val guild = api.findGuild("Aggramar", "Auditor Fortuna Juvat")
+		Await.result(guild, Duration(2000, "millis"))
+		guild.isCompleted
+		guild.value.get.get.name === "Auditor Fortuna Juvat"
 	}
 
    }

@@ -23,6 +23,8 @@ seq(releaseSettings :_*)
 
 libraryDependencies ++= apiDependencies
 
+resolvers += "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials") 
@@ -34,4 +36,3 @@ publishTo := {
     Some("chriswkRelease" at chriswkArtifactory + "libs-release-local")
  }
 }
-

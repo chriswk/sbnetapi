@@ -4,10 +4,10 @@ import Keys._
 object Dependencies {
 	val dispatchVersion = "0.11.0"
 	val slf4jVersion = "1.7.5"
-	val specs2 = "org.specs2" %% "specs2" % "2.2.3"
-	val scalaMock3 = "org.scalamock" %% "scalamock-specs2-support" % "3.0.1"
 	val typesafeLogging = "org.typesafe" % "scalaloggin-slf4j" % "1.0.1"
-	val betaMax = "co.freeside" % "betamax" % "1.1.2"
+
+	val specs2 = "org.specs2" %% "specs2" % "2.2.3"
+	val betaMax = "co.freeside" % "betamax" % "1.2-SNAPSHOT"
 	
 	def dispatchDep(artifactName: String) = {
 		"net.databinder.dispatch" %% s"dispatch-${artifactName}" % dispatchVersion
